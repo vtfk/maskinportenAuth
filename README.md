@@ -120,6 +120,7 @@ console.log(Buffer.from(fs.readFileSync('./private.key')).toString('base64'))
 MASKINPORTEN_CERT="Lfd0LSfdCRUdJTiBDRVJUS..." # Base64 representasjon av sertifikatet
 MASKINPORTEN_PRIVATE_KEY="Lsg0fdCfdfdBDRVJUS..." # Base64 representasjon av private key for sertifikatet
 MASKINPORTEN_ISSUER="00000000-0000-0000-0000-000000000000" # Klient-ID fra steg 1
+MASKINPORTEN_SCOPE="prefix:scope" # Scope fra steg 1, f.eks "ks:fiks"
 MASKINPORTEN_TOKEN_URL="maskinporten.no/token" # Sjekk ulike endepunkter her: https://docs.digdir.no/docs/Maskinporten/maskinporten_func_wellknown.html
 MASKINPORTEN_AUDIENCE="maskinporten.no" # Sjekk ulike endepunkter her: https://docs.digdir.no/docs/Maskinporten/maskinporten_func_wellknown.html
 
