@@ -11,7 +11,7 @@ Mer spesifikke steg beskrives under
 ## Oppsett
 ### Forutsetninger
 - Bruker på [Samarbeidsportalen](https://samarbeid.digdir.no/). (For prod må man få [delegert tilgang fra Altinn hovedadministrator](https://docs.digdir.no/docs/Maskinporten/maskinporten_sjolvbetjening_web.html))
-- Virksomhetssertifikat for din organisasjon - et for prod, og et for test.
+- [Virksomhetssertifikat](https://www.altinn.no/hjelp/profil/avanserte-innstillinger/hva-er-virksomhetssertifikat/) for din organisasjon - et for prod, og et for test.
 
 ### 1. Sett opp integrasjon i selvbetjeningsportalen
 - Logg på [Samarbeidsportalen](https://samarbeid.digdir.no/). Klikk deg inn på Integrasjoner -> Selvbetjening
