@@ -1,5 +1,4 @@
 # maskinportenAuth
-############################################################################################################################################################################
 For getting access tokens from maskinporten
 
 *Tar denne på norsk, siden maskinporten er norsk*
