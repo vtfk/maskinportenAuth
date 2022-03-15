@@ -2,12 +2,31 @@
 For getting access tokens from maskinporten
 
 *Tar denne på norsk, siden maskinporten er norsk*
-
 ## Nyttige lenker
 - [Ta i bruk maskinporten som konsument](https://samarbeid.digdir.no/maskinporten/konsument/119) (Registrering og sånt)
 - [Maskinporten dokumentasjon](https://docs.digdir.no/docs/Maskinporten/)
 
 Mer spesifikke steg beskrives under
+## Bruk
+**Du må ha på plass sertifikater og nøkler før du kan bruke denne pakka.** Se avsnitt [Oppsett](#oppsett)
+```js
+const maskinportenToken = require('./index')
+const options = {
+    url: process.env.MASKINPORTEN_TOKEN_URL || 'maskinportenToken.no/token',
+    cert: Buffer.from(process.env.MASKINPORTEN_CERT, 'base64').toString() || 'et sertifikat som BASE64',
+    privateKey: Buffer.from(process.env.MASKINPORTEN_PRIVATE_KEY, 'base64').toString() || 'en privat nøkkel som BASE64',
+    audience: process.env.MASKINPORTEN_AUDIENCE || 'https://maskinporten.no',
+    issuer: process.env.MASKINPORTEN_ISSUER || 'klientID fra maskinporten',
+    scope: process.env.MASKINPORTEN_SCOPE || 'prefix:scope'
+}
+try {
+    const token = await maskinportenToken(options)
+    console.log(token)
+} catch (error) {
+    console.log('Something went wrong. ', error)
+}
+```
+
 ## Oppsett
 ### Forutsetninger
 - Bruker på [Samarbeidsportalen](https://samarbeid.digdir.no/). (For prod må man få [delegert tilgang fra Altinn hovedadministrator](https://docs.digdir.no/docs/Maskinporten/maskinporten_sjolvbetjening_web.html))
