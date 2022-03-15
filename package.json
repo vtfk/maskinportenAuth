@@ -4,7 +4,7 @@
   "description": "For getting tokens from Maskinporten",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "standard --fix && jest"
   },
   "repository": {
     "type": "git",
@@ -25,5 +25,13 @@
     "dotenv": "^16.0.0",
     "jsonwebtoken": "^8.5.1",
     "nanoid": "^3.3.1"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1"
+  },
+  "standard": {
+    "env": [
+      "jest"
+    ]
   }
 }
