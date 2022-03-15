@@ -1,4 +1,4 @@
-/* 
+/*
 Miljøvariabler:
 MASKINPORTEN_CERT="Lfd0LSfdCRUdJTiBDRVJUS..." # Base64 representasjon av sertifikatet
 MASKINPORTEN_PRIVATE_KEY="Lsg0fdCfdfdBDRVJUS..." # Base64 representasjon av private key for sertifikatet
@@ -12,7 +12,7 @@ Steg 1:
 
 */
 
-const {generateMaskinportenGrant, getMaskinportenToken} = require ('./lib/maskinporten-auth')
+const { generateMaskinportenGrant, getMaskinportenToken } = require('./lib/maskinporten-auth')
 /**
  * Gets the access token from Maskinporten using the generated grant.
  *
@@ -24,7 +24,7 @@ const {generateMaskinportenGrant, getMaskinportenToken} = require ('./lib/maskin
  * @param {string} options.issuer The clientId generated in samarbeidsportalen
  */
 module.exports = async (options) => {
-    const jwt = generateMaskinportenGrant(options)
-    const token = await getMaskinportenToken({...options, jwt})
-    return token
+  const jwt = generateMaskinportenGrant(options)
+  const token = await getMaskinportenToken({ ...options, jwt })
+  return token
 }
