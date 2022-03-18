@@ -12,6 +12,13 @@ const testOptions = {
   issuer: 'clientID',
   scope: 'prefix:scope'
 }
+const invalidOptions = {
+  cert: Buffer.from(cert, 'base64').toString(),
+  privateKey: Buffer.from(key, 'base64').toString(),
+  issuer: 'clientID',
+  scope: 'prefix:scope'
+}
+const requiredParameters = ['cert', 'privateKey', 'audience', 'issuer']
 
 test('Grant is succesfully created, when valid options are provided', () => {
   const grant = generateMaskinportenGrant(testOptions)
@@ -20,4 +27,29 @@ test('Grant is succesfully created, when valid options are provided', () => {
   expect(decoded.scope).toBe(testOptions.scope)
   expect(decoded.iss).toBe(testOptions.issuer)
   expect(decoded.aud).toBe(testOptions.audience)
+})
+
+test('Throws error when missing required parameters', () => {
+  const fn = () => {
+    generateMaskinportenGrant(invalidOptions)
+  }
+  expect(fn).toThrow('Missing required input')
+})
+describe('Throws error when missing required parameter:', () => {
+  requiredParameters.forEach(parameter => {
+    test(parameter, () => {
+      const options = {
+        cert: 'tullball',
+        privateKey: 12345,
+        audience: 'hello.no',
+        issuer: 'clientID',
+        scope: 'prefix:scope'
+      }
+      delete options[parameter]
+      const fn = () => {
+        generateMaskinportenGrant(options)
+      }
+      expect(fn).toThrow('Missing required input')
+    })
+  })
 })
