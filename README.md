@@ -6,6 +6,11 @@ For getting access tokens from maskinporten
 - [Ta i bruk maskinporten som konsument](https://samarbeid.digdir.no/maskinporten/konsument/119) (Registrering og sånt)
 - [Maskinporten dokumentasjon](https://docs.digdir.no/docs/Maskinporten/)
 
+## Installasjon
+```bash
+npm i @vtfk/maskinporten-auth
+```
+
 Mer spesifikke steg beskrives under
 ## Bruk
 **Du må ha på plass sertifikater og nøkler før du kan bruke denne pakka.** Se avsnitt [Oppsett](#oppsett)
@@ -144,8 +149,6 @@ MASKINPORTEN_TOKEN_URL="maskinporten.no/token" # Sjekk ulike endepunkter her: ht
 MASKINPORTEN_AUDIENCE="maskinporten.no" # Sjekk ulike endepunkter her: https://docs.digdir.no/docs/Maskinporten/maskinporten_func_wellknown.html
 
 ```
-
-### Kode/npm pakke kommer etterhvert - god helg
 
 
 
