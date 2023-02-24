@@ -15,15 +15,26 @@ Mer spesifikke steg beskrives under
 ## Bruk
 **Du må ha på plass sertifikater og nøkler før du kan bruke denne pakka.** Se avsnitt [Oppsett](#oppsett)
 ```js
-const maskinportenToken = require('./index')
+const maskinportenToken = require('@vtfk/maskinporten-auth')
+// PEM
 const options = {
-    url: process.env.MASKINPORTEN_TOKEN_URL || 'maskinportenToken.no/token',
-    cert: Buffer.from(process.env.MASKINPORTEN_CERT, 'base64').toString() || 'et sertifikat som BASE64',
-    privateKey: Buffer.from(process.env.MASKINPORTEN_PRIVATE_KEY, 'base64').toString() || 'en privat nøkkel som BASE64',
-    audience: process.env.MASKINPORTEN_AUDIENCE || 'https://maskinporten.no',
-    issuer: process.env.MASKINPORTEN_ISSUER || 'klientID fra maskinporten',
-    scope: process.env.MASKINPORTEN_SCOPE || 'prefix:scope'
+    url: 'url for hente token fra maskinporten', // Sjekk ulike endepunkter her: https://docs.digdir.no/docs/Maskinporten/maskinporten_func_wellknown.html
+    pemcert: 'et PEM sertifikat som BASE64',
+    pemprivateKey: 'en PEM privat nøkkel som BASE64',
+    audience: 'https://maskinporten.no', // // Sjekk ulike audience her: https://docs.digdir.no/docs/Maskinporten/maskinporten_func_wellknown.html
+    issuer: 'klientID-guid fra maskinporten klienten du har satt opp',
+    scope: 'prefix:scope', // Scopet du vil ha token for
 }
+// Eller PFX
+const optionsPfx = {
+    url: 'url for hente token fra maskinporten', // Sjekk ulike endepunkter her: https://docs.digdir.no/docs/Maskinporten/maskinporten_func_wellknown.html
+    pfxcert: 'et PFX sertifikat som BASE64',
+    privateKeyPassphrase: 'krypertingspassordet for sertifikatets privatekey',
+    audience: 'https://maskinporten.no', // // Sjekk ulike audience her: https://docs.digdir.no/docs/Maskinporten/maskinporten_func_wellknown.html
+    issuer: 'klientID-guid fra maskinporten klienten du har satt opp',
+    scope: 'prefix:scope', // Scopet du vil ha token for
+}
+
 try {
     const token = await maskinportenToken(options)
     console.log(token)
