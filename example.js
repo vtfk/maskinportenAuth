@@ -1,7 +1,7 @@
 (async () => {
   require('dotenv').config()
   const maskinportenToken = require('./index')
-  const options = {
+  const pemOptions = {
     url: process.env.MASKINPORTEN_TOKEN_URL || 'maskinportenToken.no/token',
     pemcert: process.env.MASKINPORTEN_CERT || 'et sertifikat som BASE64',
     pemprivateKey: process.env.MASKINPORTEN_PRIVATE_KEY || 'en privat nøkkel som BASE64',
@@ -18,7 +18,8 @@
     scope: process.env.MASKINPORTEN_SCOPE || 'prefix:scope'
   }
   try {
-    const token = await maskinportenToken(pfxOptions)
+    const options = pemOptions || pfxOptions
+    const token = await maskinportenToken(options)
     console.log(token)
   } catch (error) {
     console.log('Something went wrong. ', error)

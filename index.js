@@ -11,7 +11,7 @@ const { generateMaskinportenGrant, getMaskinportenToken } = require('./lib/maski
  * @param {string} options.audience Audience - https://maskinporten.no/ in most cases
  * @param {string} options.issuer The clientId generated in samarbeidsportalen
  * @param {string} options.scope The scope for the token
- * 
+ *
  * @return {object} token from maskinporten
  */
 module.exports = async (options) => {

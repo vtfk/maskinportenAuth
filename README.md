@@ -19,8 +19,8 @@ const maskinportenToken = require('@vtfk/maskinporten-auth')
 // PEM
 const options = {
     url: 'url for hente token fra maskinporten', // Sjekk ulike endepunkter her: https://docs.digdir.no/docs/Maskinporten/maskinporten_func_wellknown.html
-    pemcert: 'et PEM sertifikat som BASE64',
-    pemprivateKey: 'en PEM privat nøkkel som BASE64',
+    pemcert: 'et PEM sertifikat som BASE64-string',
+    pemprivateKey: 'en PEM privat nøkkel som BASE64-string',
     audience: 'https://maskinporten.no', // // Sjekk ulike audience her: https://docs.digdir.no/docs/Maskinporten/maskinporten_func_wellknown.html
     issuer: 'klientID-guid fra maskinporten klienten du har satt opp',
     scope: 'prefix:scope', // Scopet du vil ha token for
@@ -28,7 +28,7 @@ const options = {
 // Eller PFX
 const optionsPfx = {
     url: 'url for hente token fra maskinporten', // Sjekk ulike endepunkter her: https://docs.digdir.no/docs/Maskinporten/maskinporten_func_wellknown.html
-    pfxcert: 'et PFX sertifikat som BASE64',
+    pfxcert: 'et PFX sertifikat som BASE64-string',
     privateKeyPassphrase: 'krypertingspassordet for sertifikatets privatekey',
     audience: 'https://maskinporten.no', // // Sjekk ulike audience her: https://docs.digdir.no/docs/Maskinporten/maskinporten_func_wellknown.html
     issuer: 'klientID-guid fra maskinporten klienten du har satt opp',
