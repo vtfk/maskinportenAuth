@@ -51,9 +51,10 @@ try {
 - Når integrasjonen er ferdig satt opp, ta med deg **Integrasjons-ID**, og **scopes** for integrasjonen (du finner de igjen i selvbetjeningsportalen, så no worries om du glemmer de)
 
 ### 2. Gjør klar sertifikat for å gjøre spørringer om access token
-- Sertifikatet kan være lagret i ulike formater, til nå har "jeg" vært borti .p12, så denne guiden tar utgangpunkt i det
 - Om du satte opp integrasjonen i "Produksjon", bruk prod-virksomhetssertifikat, om integrasjonen er i "Ver 1" eller "Ver 2", bruk test-virksomhetetssertifikat. Organisasjonen din bør ha begge typer, om du er usikker - spør en voksen.
-#### 2.1 Konverter sertifikatet fra .p12 til .pem
+- Om du har et .p12 sertifikat - ta å rename det til .pfx
+#### 2.1 PEM
+##### 2.1.1 Konvertere P12 til PEM
 - Lagre sertifikatet du skal bruke sikkert et sted du kan kjøre openssl (UNIX) (hvis du har Windows - bruk [WSL](https://docs.microsoft.com/en-us/windows/wsl/install))
 - Kjør kommando:
 ```
@@ -91,7 +92,7 @@ blablablablablablabalabblablablablablablabalabblablablablablabla
 -----END CERTIFICATE-----
 ```
 
-#### 2.2 Hent ut relevant sertifikat og tilhørende nøkkel
+##### 2.1.2 Hent ut relevant sertifikat og tilhørende nøkkel
 - Mot Maskinporten er du ute etter sertifikat og key av typen `friendlyName: Authentication certificate` eller `friendlyName: <org.navn> TEST`
 - Kopier ut *Authentication certificate* fra og med "-----BEGIN CERTIFICATE-----" til og med "-----END CERTIFICATE-----", og lagre det i en egen fil kalt "*cert.pem*"
 - Kopier ut *Authentication certificate* fra og med "-----BEGIN PRIVATE KEY----" til og med "-----END PRIVATE KEY-----", og lagre det i en egen fil kalt "*private.key*"
@@ -123,7 +124,7 @@ blablablablablablabalabblablablablablablabalabblablablablablabla
 
 - Merk deg hvor du lagrer filene (og lagre de meget sikkert)
 
-#### 2.3 Konverter cert.pem og private.key til base64-strings
+##### 2.1.3 Konverter cert.pem og private.key til base64-strings
 - Naviger i en terminal til der du har lagret *cert.pem* og *private.key*
 - Kjør kommando `node`
 - Kjør kommando
@@ -138,16 +139,47 @@ console.log(Buffer.from(fs.readFileSync('./private.key')).toString('base64'))
 - Lagre outputen på en trygg plass som `MASKINPORTEN_PRIVATE_KEY=<OUTPUT>`
 - **!!! Hvis du nå har lagret alt lokalt bør du slette sertifikatene + "cert.pem" + "private.key". Base64-nøklene er alt du trenger.** Sertifikatene skal ikke ligge å slenge rundt.
 
-### Sette opp spørring mot maskinporten
-- For å lage en jwt til spørringa mot maskinporten trenger man følgende miljøvariabler:
-```bash
-MASKINPORTEN_CERT="Lfd0LSfdCRUdJTiBDRVJUS..." # Base64 representasjon av sertifikatet
-MASKINPORTEN_PRIVATE_KEY="Lsg0fdCfdfdBDRVJUS..." # Base64 representasjon av private key for sertifikatet
-MASKINPORTEN_ISSUER="00000000-0000-0000-0000-000000000000" # Klient-ID fra steg 1
-MASKINPORTEN_SCOPE="prefix:scope" # Scope fra steg 1, f.eks "ks:fiks"
-MASKINPORTEN_TOKEN_URL="maskinporten.no/token" # Sjekk ulike endepunkter her: https://docs.digdir.no/docs/Maskinporten/maskinporten_func_wellknown.html
-MASKINPORTEN_AUDIENCE="maskinporten.no" # Sjekk ulike endepunkter her: https://docs.digdir.no/docs/Maskinporten/maskinporten_func_wellknown.html
+#### 2.1.4 Sette opp spørring mot maskinporten
+- For å få en token fra maskinporten kan man gjøre følgende:
 
+```js
+const options = {
+    url: 'url for hente token fra maskinporten', // Sjekk ulike endepunkter her: https://docs.digdir.no/docs/Maskinporten/maskinporten_func_wellknown.html
+    pemcert: 'et PEM sertifikat som BASE64',
+    pemprivateKey: 'en PEM privat nøkkel som BASE64',
+    audience: 'https://maskinporten.no', // // Sjekk ulike audience her: https://docs.digdir.no/docs/Maskinporten/maskinporten_func_wellknown.html
+    issuer: 'klientID-guid fra maskinporten klienten du har satt opp',
+    scope: 'prefix:scope', // Scopet du vil ha token for
+}
+try {
+    const token = await maskinportenToken(options)
+    console.log(token)
+} catch (error) {
+    console.log('Something went wrong. ', error)
+}
+```
+
+### 2.2 PFX (denne er chillest)
+#### 2.2.1 Konvertere P12 til PFX
+Rename sertifikatet fra .p12 til .pfx. Tada.
+#### 2.1.4 Sette opp spørring mot maskinporten
+- For å få en token fra maskinporten kan man gjøre følgende:
+
+```js
+const options = {
+    url: 'url for hente token fra maskinporten', // Sjekk ulike endepunkter her: https://docs.digdir.no/docs/Maskinporten/maskinporten_func_wellknown.html
+    pfxcert: 'et PFX sertifikat som BASE64',
+    privateKeyPassphrase: 'krypertingspassordet for sertifikatets privatekey',
+    audience: 'https://maskinporten.no', // // Sjekk ulike audience her: https://docs.digdir.no/docs/Maskinporten/maskinporten_func_wellknown.html
+    issuer: 'klientID-guid fra maskinporten klienten du har satt opp',
+    scope: 'prefix:scope', // Scopet du vil ha token for
+}
+try {
+    const token = await maskinportenToken(pfxOptions)
+    console.log(token)
+} catch (error) {
+    console.log('Something went wrong. ', error)
+}
 ```
 
 
