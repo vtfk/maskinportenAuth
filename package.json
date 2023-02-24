@@ -1,6 +1,6 @@
 {
   "name": "@vtfk/maskinporten-auth",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "For getting tokens from Maskinporten",
   "main": "index.js",
   "scripts": {
