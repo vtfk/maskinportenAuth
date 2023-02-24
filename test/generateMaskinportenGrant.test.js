@@ -25,7 +25,7 @@ const testPemOptions = {
   scope: 'prefix:scope'
 }
 const invalidOptions = {
-  pemcert: pemcert,
+  pemcert,
   pemprivateKey: pemkey,
   issuer: 'clientID',
   scope: 'prefix:scope'
