@@ -7,6 +7,10 @@ For getting access tokens from maskinporten
 - [Maskinporten dokumentasjon](https://docs.digdir.no/docs/Maskinporten/)
 
 ## Installasjon
+
+> [!IMPORTANT]
+> Krever Node v18 eller nyere
+
 ```bash
 npm i @vtfk/maskinporten-auth
 ```
@@ -56,7 +60,7 @@ try {
 
 - ![Versjoner](./img/versjoner.png)
 
-- Opprett en ny integrasjon. Legg til de scopene integrasjonen skal ha tilgang til (f. eks "ks:fiks", [Les mer om scopes her](https://docs.digdir.no/docs/Maskinporten/maskinporten_sjolvbetjening_web.html#innlogging-scopesapier))
+- Opprett en ny integrasjon. Legg til de scops integrasjonen skal ha tilgang til (f. eks "ks:fiks", [Les mer om scopes her](https://docs.digdir.no/docs/Maskinporten/maskinporten_sjolvbetjening_web.html#innlogging-scopesapier))
 - Resultatet bør se omtrent slik ut:
 - ![Integrasjon](./img/nyIntegrasjon.png)
 - Når integrasjonen er ferdig satt opp, ta med deg **Integrasjons-ID**, og **scopes** for integrasjonen (du finner de igjen i selvbetjeningsportalen, så no worries om du glemmer de)

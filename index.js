@@ -3,7 +3,7 @@ const { generateMaskinportenGrant, getMaskinportenToken } = require('./lib/maski
  * Gets the access token from Maskinporten using the generated grant.
  *
  * @param {object} options
- * @param {object} options.url The /token url for maskinporten
+ * @param {string} options.url The /token url for maskinporten
  * @param {string} [options.pfxcert] Virksomhetssertifikat PFX format
  * @param {string} [options.pemcert] Virksomhetssertifikat PEM format
  * @param {string} [options.pemprivateKey] Virksomhetssertifikat private key PEM format
@@ -16,6 +16,5 @@ const { generateMaskinportenGrant, getMaskinportenToken } = require('./lib/maski
  */
 module.exports = async (options) => {
   const jwt = generateMaskinportenGrant(options)
-  const token = await getMaskinportenToken({ ...options, jwt })
-  return token
+  return await getMaskinportenToken({ ...options, jwt })
 }
